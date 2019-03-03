@@ -18,42 +18,42 @@ package com.stackroute;
 
 import com.stackroute.domain.Actor;
 import com.stackroute.domain.Movie;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+
 
 import java.sql.SQLOutput;
 
 public class Main {
     public static void main(String[] args) {
 
-        Resource resource = new ClassPathResource("beans.xml");
+        XmlBeanFactory xmlBeanFactory= new XmlBeanFactory ( new ClassPathResource("bean.xml"));
+        Movie movieFirst= (Movie)xmlBeanFactory.getBean("movie1");
+        Movie moviesecond=(Movie)xmlBeanFactory.getBean("movie1");
 
-        BeanFactory factory = new XmlBeanFactory(resource);
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("BeanFile.xml");
+        Movie movie=(Movie)applicationContext.getBean("movie2");
+        Movie movie2=(Movie)applicationContext.getBean("movie2");
 
-        Actor actor= (Actor) factory.getBean("act");
-        System.out.println(actor);
+        Movie movieB=(Movie)applicationContext.getBean("movieB");
 
+        System.out.println(movieFirst.getActor());
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        System.out.println(movie.getActor());
 
+        System.out.println(movie==movie2);
 
-        Actor actor1 = (Actor) context.getBean("act");
-        System.out.println(actor1);
+        System.out.println(movieFirst==moviesecond);
 
-        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
-        reader.loadBeanDefinitions(new ClassPathResource("beans.xml"));
+        System.out.println(movieB.getActor());
 
-        Actor actor2 = (Actor)beanFactory.getBean("act");
-        System.out.println(actor2);
+        // BeanDefinitionRegistry beanDefinitionRegistry= new BeanDefinitionReader("BeanFile.xml");
 
     }
 }
