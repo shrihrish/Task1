@@ -33,27 +33,17 @@ import java.sql.SQLOutput;
 public class Main {
     public static void main(String[] args) {
 
-        XmlBeanFactory xmlBeanFactory= new XmlBeanFactory ( new ClassPathResource("bean.xml"));
-        Movie movieFirst= (Movie)xmlBeanFactory.getBean("movie1");
-        Movie moviesecond=(Movie)xmlBeanFactory.getBean("movie1");
 
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("BeanFile.xml");
+
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
         Movie movie=(Movie)applicationContext.getBean("movie2");
-        Movie movie2=(Movie)applicationContext.getBean("movie2");
+        Movie movie2=(Movie)applicationContext.getBean("movie3");
 
-        Movie movieB=(Movie)applicationContext.getBean("movieB");
-
-        System.out.println(movieFirst.getActor());
 
         System.out.println(movie.getActor());
+        System.out.println(movie2.getActor());
 
-        System.out.println(movie==movie2);
 
-        System.out.println(movieFirst==moviesecond);
-
-        System.out.println(movieB.getActor());
-
-        // BeanDefinitionRegistry beanDefinitionRegistry= new BeanDefinitionReader("BeanFile.xml");
 
     }
 }
