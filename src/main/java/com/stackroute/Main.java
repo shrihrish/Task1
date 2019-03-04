@@ -16,19 +16,11 @@ Create a spring-xml-demo repo and push the code to master branch.
  */
 package com.stackroute;
 
-import com.stackroute.domain.Actor;
-import com.stackroute.domain.Movie;
 
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.BeanNameAware;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
+
+import com.stackroute.domain.BeanLifeCycleDemo;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
 
 
 import java.sql.SQLOutput;
@@ -40,19 +32,9 @@ public class Main {
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
 
-        Movie movie=(Movie)applicationContext.getBean("movie2");
-        Movie movie2=(Movie)applicationContext.getBean("movie3");
+        ((ClassPathXmlApplicationContext) applicationContext).registerShutdownHook();
+        BeanLifeCycleDemo beanLifeCycleDemo = (BeanLifeCycleDemo) applicationContext.getBean("cycle");
 
-        XmlBeanFactory xmlBeanFactory= new XmlBeanFactory ( new ClassPathResource("bean.xml"));
-        Movie movieFirst= (Movie)xmlBeanFactory.getBean("movie2");
-
-
-        System.out.println(movie.getActor());
-        System.out.println(movie2.getActor());
-
-        movie.setApplicationContext(applicationContext);
-        movieFirst.setBeanFactory(xmlBeanFactory);
-        movie.setBeanName("beam123");
 
 
 
